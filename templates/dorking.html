@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Dorking Tool</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #d1d5db;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #d1d5db;
+            border-bottom: none;
+            background: #f9fafb;
+            margin-right: 5px;
+        }
+
+        .tab.active {
+            background: #ffffff;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+        }
+
+        button {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Google Dorking Tool</h1>
+    <p>Use Google dorks for OSINT & security research</p>
+
+    <!-- Tabs -->
+     <a href="/">← Back to Home</a>
+    <div class="tabs">
+        <div class="tab active" onclick="openTab('basic')">Basic</div>
+        <div class="tab" onclick="openTab('advanced')">Advanced</div>
+    </div>
+
+    <!-- BASIC TAB -->
+    <div id="basic" class="tab-content active">
+        <form method="POST">
+            <input type="hidden" name="mode" value="basic">
+
+            <label>Category</label>
+            <select name="category" required>
+                <option value="">Select</option>
+                <option value="passwords">Password Lists</option>
+                <option value="logs">Log Files</option>
+                <option value="reports">Reports</option>
+                <option value="labs">Cyber Security Labs</option>
+                <option value="vuln">Vulnerable Websites</option>
+                <option value="breach">Data Breach Files</option>
+            </select>
+
+            <label>Keyword</label>
+            <input type="text" name="keyword" required>
+
+            <button type="submit">Search on Google</button>
+        </form>
+    </div>
+
+    <!-- ADVANCED TAB -->
+    <div id="advanced" class="tab-content">
+        <form method="POST">
+            <input type="hidden" name="mode" value="advanced">
+
+            <label>Keyword</label>
+            <input type="text" name="adv_keyword" required>
+
+            <label>File Type</label>
+            <select name="filetype">
+                <option value="">None</option>
+                <option value="pdf">PDF</option>
+                <option value="txt">TXT</option>
+                <option value="sql">SQL</option>
+                <option value="csv">CSV</option>
+                <option value="zip">ZIP</option>
+            </select>
+
+            <label>Category</label>
+            <select name="adv_category">
+                <option value="">None</option>
+                <option value="website">Websites</option>
+                <option value="password">Password Lists</option>
+                <option value="database">Database Files</option>
+                <option value="labs">Labs</option>
+                <option value="reports">Reports</option>
+            </select>
+
+            <button type="submit">Generate Query</button>
+        </form>
+
+        {% if generated_query %}
+            <hr>
+            <label>Generated Google Dork</label>
+            <input type="text" value="{{ generated_query }}" readonly>
+            <p style="font-size:13px;color:#555;">Copy & paste into Google</p>
+        {% endif %}
+    </div>
+
+</div>
+
+<script>
+function openTab(tabName) {
+    let tabs = document.querySelectorAll('.tab');
+    let contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(t => t.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+
+    document.getElementById(tabName).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

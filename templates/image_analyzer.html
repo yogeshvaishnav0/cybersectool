@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Analyzer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        .upload-box {
+            border: 2px dashed #9ca3af;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .upload-box:hover {
+            background-color: #f3f4f6;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .options {
+            margin: 20px 0;
+        }
+
+        .result {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Image Analyzer</h1>
+    <p>Analyze image metadata using ExifTool</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label class="upload-box">
+            Click to upload image
+            <input type="file" name="image" accept="image/*" required>
+        </label>
+
+        <div class="options">
+            <label>
+                <input type="checkbox" name="metadata">
+                Extract Metadata
+            </label><br>
+
+            <label>
+                <input type="checkbox" name="ai_detect">
+                AI Image Detection <sup>Beta</sup>
+            </label>
+        </div>
+
+        <button type="submit">Analyze Image</button>
+    </form>
+
+    {% if result %}
+        <div class="result">
+            {{ result }}
+        </div>
+    {% endif %}
+
+    <br>
+    <a href="/">← Back to Home</a>
+</div>
+
+</body>
+</html>
