@@ -54,7 +54,7 @@ Uses **ExifTool (pre-installed in Kali Linux)** to analyze images.
 ## 🚀 Installation & Run
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/yogeshvaishnav0/cybersectool.git
 cd cyber_platform
 python3 -m venv venv
 source venv/bin/activate
